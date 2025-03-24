@@ -1,13 +1,9 @@
 import React from 'react';
 import {StyleText} from './Style';
 
-const Input = () => {
+const Input = ({placeholder = "escreva", type}) => {
     return (
-        <StyleText>
-            <input
-                placeholder={"Eu fiz isso e isso e isso."}
-            />
-        </StyleText>
+        <StyleText placeholder={placeholder} type={type} />
     );
 };
 

@@ -1,26 +1,31 @@
-import { onAuthStateChanged } from "firebase/auth"
 import Base from "./Base"
-import { auth } from "../config/Firebase";
-import { useEffect } from "react";
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import Titulo from "../components/Elementos/Textos/Titulo/Titulo";
 
 const Home = () => {
+    const navigate = useNavigate();
 
-  /* useEffect(()=> {
-    onAuthStateChanged(auth, (user)=> {
-      if (user) {
-        window.sessionStorage.setItem("accessToken", user.accessToken);
-      } else {
-        window.sessionStorage.removeItem("accessToken");
-      }
-    })
-  },[]) */
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        const tipo = localStorage.getItem("tipo");
+
+        if (!token) {
+            navigate("/colaborador");
+        }
+
+        if (tipo === "professor") {
+            navigate("/professor");
+        }
+
+    }, [navigate]);
   
 
   return (
     <Base>
-      <h1>
-     Aplicação React Base
-      </h1>
+        <Titulo>
+            HISTÓRICO
+        </Titulo>
     </Base>
   )
 }

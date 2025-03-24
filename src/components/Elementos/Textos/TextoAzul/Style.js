@@ -1,3 +1,4 @@
+// Style.js
 export const textContainer = {
     width: '18.6875rem',
     height: '2.6875rem',
@@ -26,4 +27,19 @@ export const historicoContainer = {
     fontWeight: 600,
     lineHeight: 'normal',
     textTransform: 'uppercase',
+};
+
+export const historicoBlueContainer = {
+    display: 'flex',
+    height: '0.875rem',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexShrink: 0,
+
+    color: '#063D86',
+    fontFamily: '"TT Chocolates Trl"',
+    fontSize: '1rem',
+    fontStyle: 'normal',
+    fontWeight: 600,
+    lineHeight: 'normal',
 };

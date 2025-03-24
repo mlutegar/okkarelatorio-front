@@ -1,4 +1,6 @@
 // Style.js
+import styled from "styled-components";
+
 export const textContainer = {
     width: '18.6875rem',
     height: '2.6875rem',
@@ -44,3 +46,30 @@ export const historicoBlueContainer = {
     fontWeight: 600,
     lineHeight: 'normal',
 };
+
+export const BotaoPrimarioStyle = styled.button`
+    width: 15.25rem;
+    height: 2.1875rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    background: #063D86;
+    border: none;
+
+    color: #FFBD59;
+    text-align: center;
+    font-family: "TT Chocolates Trl";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+    /* Adicionais para melhorar a aparência e usabilidade do botão */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        background: #064aa4;
+    }
+`;

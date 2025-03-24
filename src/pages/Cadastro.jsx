@@ -9,7 +9,7 @@ import Input from "../components/Input/Input";
 import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPrimario";
 import BotaoSecundario from "../components/Elementos/Botoes/BotaoSecundario/BotaoSecundario";
 
-const Login = () => {
+const Cadastro = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -27,8 +27,26 @@ const Login = () => {
     return (
         <Base>
             <Titulo>
-                Login
+                Cadastro
             </Titulo>
+
+            <div style={{width: '100%'}}>
+                <TextoAzul>
+                    Nome Completo
+                </TextoAzul>
+                <Input
+                    placeholder="Digite seu nome"
+                />
+            </div>
+
+            <div style={{width: '100%'}}>
+                <TextoAzul>
+                    Matricula
+                </TextoAzul>
+                <Input
+                    placeholder="Digite sua matricula"
+                />
+            </div>
 
             <div style={{width: '100%'}}>
                 <TextoAzul>
@@ -45,22 +63,17 @@ const Login = () => {
                 </TextoAzul>
                 <Input
                     placeholder="Digite sua senha"
+                    type={"password"}
                 />
             </div>
 
             <BotaoPrimario
                 onClick={() => navigate('/')}
             >
-                Login
+                Cadastrar
             </BotaoPrimario>
-
-            <BotaoSecundario
-                onClick={() => navigate('/cadastro')}
-            >
-                Cadastro
-            </BotaoSecundario>
         </Base>
     )
 }
 
-export default Login;
+export default Cadastro;

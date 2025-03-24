@@ -1,5 +1,5 @@
 import Logo from "../Logo/Logo";
-import TextoHeader from "../TextoHeader/TextoHeader";
+import TextoHeader from "../Elementos/Textos/TextoHeader/TextoHeader";
 import { Stetico } from './Style';
 
 const Header = () => (
