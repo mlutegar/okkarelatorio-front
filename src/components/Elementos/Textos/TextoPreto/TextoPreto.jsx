@@ -1,9 +1,9 @@
 import React from 'react';
 import { historicoBlueContainer } from './Style';
 
-const TextoPreto = ({children}) => {
+const TextoPreto = ({children, className}) => {
     return (
-        <div style={historicoBlueContainer}>
+        <div style={historicoBlueContainer} className={className}>
             {children}
         </div>
     );

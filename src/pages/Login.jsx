@@ -1,66 +1,62 @@
-import {useState} from "react";
-import {redirect, useNavigate} from "react-router-dom";
-import {auth} from "../config/Firebase";
-import {signInWithEmailAndPassword} from "firebase/auth";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Base from "./Base";
 import Titulo from "../components/Elementos/Textos/Titulo/Titulo";
 import TextoAzul from "../components/Elementos/Textos/TextoAzul/TextoAzul";
 import Input from "../components/Input/Input";
 import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPrimario";
 import BotaoSecundario from "../components/Elementos/Botoes/BotaoSecundario/BotaoSecundario";
+import login from "../api/login";
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [erro, setErro] = useState(null);
 
-    const handleLogin = async (event) => {
-        event.preventDefault();
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
+    const handleLogin = async () => {
+        const sucesso = await login(email, senha);
+        if (sucesso) {
             navigate('/');
-        } catch (error) {
-            alert(error.message);
+        } else {
+            setErro("Usuário ou senha incorretos.");
         }
     };
 
     return (
         <Base>
-            <Titulo>
-                Login
-            </Titulo>
+            <Titulo>Login</Titulo>
 
-            <div style={{width: '100%'}}>
-                <TextoAzul>
-                    Email
-                </TextoAzul>
+            <div style={{ width: '100%' }}>
+                <TextoAzul>Email</TextoAzul>
                 <Input
                     placeholder="Digite seu email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
 
-            <div style={{width: '100%'}}>
-                <TextoAzul>
-                    Senha
-                </TextoAzul>
+            <div style={{ width: '100%' }}>
+                <TextoAzul>Senha</TextoAzul>
                 <Input
                     placeholder="Digite sua senha"
+                    type="password"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
                 />
             </div>
 
-            <BotaoPrimario
-                onClick={() => navigate('/')}
-            >
+            {erro && <div style={{ color: 'red' }}>{erro}</div>}
+
+            <BotaoPrimario onClick={handleLogin}>
                 Login
             </BotaoPrimario>
 
-            <BotaoSecundario
-                onClick={() => navigate('/cadastro')}
-            >
+            <BotaoSecundario onClick={() => navigate('/cadastro')}>
                 Cadastro
             </BotaoSecundario>
         </Base>
-    )
-}
+    );
+};
 
 export default Login;

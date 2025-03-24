@@ -9,18 +9,18 @@ const CardRelatorio = ({onClick, colaborador, data, topico, horas}) => {
             <div style={{display: "flex", justifyContent: "space-between", padding: "1rem 1rem 0 1rem"}}>
 
                 <TextoAzul>
-                    Cinthia Morais
+                    {colaborador}
                 </TextoAzul>
                 <div className={"data"}>
                     <TextoAmarelo>
-                        13/03/2025
+                        {data}
                     </TextoAmarelo>
                 </div>
             </div>
 
             <div style={{padding: "0 1rem"}}>
                 <TextoPreto>
-                    Criação de relatório - 8h
+                    {topico} - {horas}h
                 </TextoPreto>
 
             </div>

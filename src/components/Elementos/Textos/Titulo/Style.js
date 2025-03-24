@@ -6,7 +6,7 @@ export const textContainer = {
     flexShrink: 0,
 
     color: 'rgba(0, 0, 0, 0.50)',
-    fontFamily: '"TT Chocolates Trl"',
+    fontFamily: '"TTChocTest"',
     fontSize: '1rem',
     fontStyle: 'normal',
     fontWeight: 600,

@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import Base from "./Base";
 import Titulo from "../components/Elementos/Textos/Titulo/Titulo";
 import { useLocation, useNavigate } from "react-router-dom";
-import TextoAzul from "../components/Elementos/Textos/TextoAzul/TextoAzul";
-import Input from "../components/Input/Input";
 import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPrimario";
 import BotaoCancelar from "../components/Elementos/Botoes/BotaoCancelar/BotaoCancelar";
-import TextArea from "../components/TextArea/TextArea";
+import FormularioComCheck from "../components/Elementos/Input/FormularioComCheck/FormularioComCheck";
+import FormularioTextAreaSemCheck from "../components/Elementos/Input/FormularioTextAreaComCheck/FormularioTextAreaComCheck";
 
 const FormularioDiretor = () => {
     const navigate = useNavigate();
@@ -15,6 +14,11 @@ const FormularioDiretor = () => {
     const [topico, setTopico] = useState(relatorio ? relatorio.topico : "");
     const [horas, setHoras] = useState(relatorio ? relatorio.horas : "");
     const [descricao, setDescricao] = useState(relatorio && relatorio.descricao ? relatorio.descricao : "");
+
+    // Estados para armazenar o status de check de cada campo
+    const [checkStatusTopico, setCheckStatusTopico] = useState(null);
+    const [checkStatusHoras, setCheckStatusHoras] = useState(null);
+    const [checkStatusDescricao, setCheckStatusDescricao] = useState(null);
 
     useEffect(() => {
         if (relatorio) {
@@ -25,54 +29,40 @@ const FormularioDiretor = () => {
         }
     }, [relatorio]);
 
+    // Verifica se todos os campos tiveram seu check definido
+    const isFormValid = checkStatusTopico !== null && checkStatusHoras !== null && checkStatusDescricao !== null;
+
     const handleEnviar = () => {
-        // Aqui você pode tratar o envio dos dados do formulário
+        // Trate aqui o envio dos dados do formulário
         console.log("Dados do formulário:", { topico, horas, descricao });
         navigate('/');
     };
 
     return (
         <Base>
-            <Titulo>
-                FORMULÁRIO
-            </Titulo>
+            <Titulo>FORMULÁRIO</Titulo>
 
-            <div style={{ width: '100%' }}>
-                <TextoAzul>
-                    Tópico
-                </TextoAzul>
-                <Input
-                    placeholder={topico}
-                    type="text"
-                    value={topico}
-                    onChange={(e) => setTopico(e.target.value)}
-                />
-            </div>
+            <FormularioComCheck
+                label={"Tópico"}
+                placeholder={topico}
+                type={"text"}
+                onCheckChange={setCheckStatusTopico}
+            />
 
-            <div style={{ width: '100%' }}>
-                <TextoAzul>
-                    Horas
-                </TextoAzul>
-                <Input
-                    placeholder={horas}
-                    type="number"
-                    value={horas}
-                    onChange={(e) => setHoras(e.target.value)}
-                />
-            </div>
+            <FormularioComCheck
+                label={"Horas"}
+                placeholder={horas}
+                type={"number"}
+                onCheckChange={setCheckStatusHoras}
+            />
 
-            <div style={{ width: '100%' }}>
-                <TextoAzul>
-                    Descrição
-                </TextoAzul>
-                <TextArea
-                    placeholder={descricao}
-                    value={descricao}
-                    onChange={(e) => setDescricao(e.target.value)}
-                />
-            </div>
+            <FormularioTextAreaSemCheck
+                label={"Descrição"}
+                placeholder={descricao}
+                onCheckChange={setCheckStatusDescricao}
+            />
 
-            <BotaoPrimario onClick={handleEnviar}>
+            <BotaoPrimario onClick={handleEnviar} disabled={!isFormValid}>
                 Enviar
             </BotaoPrimario>
 

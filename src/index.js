@@ -13,6 +13,8 @@ import Colaborador from "./pages/Colaborador";
 import Formulario from "./pages/Formulario";
 import Diretor from "./pages/Diretor";
 import FormularioDiretor from "./pages/FormularioDiretor";
+import Presidente from "./pages/Presidente";
+import FormularioPresidente from "./pages/FormularioPresidente";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -35,6 +37,9 @@ root.render(
 
         <Route path="/diretor" element={<Diretor/>} />
         <Route path="/formulario-diretor" element={<FormularioDiretor/>} />
+
+        <Route path="/presidente" element={<Presidente/>} />
+        <Route path="/formulario-presidente" element={<FormularioPresidente/>} />
 
         <Route path="/login" element={<Login/>} />
         <Route path="/cadastro" element={<Cadastro/>} />

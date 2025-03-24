@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Base from "./Base";
 import Titulo from "../components/Elementos/Textos/Titulo/Titulo";
 import { useNavigate } from "react-router-dom";
@@ -14,20 +14,19 @@ const Formulario = () => {
     const [horas, setHoras] = useState("");
     const [descricao, setDescricao] = useState("");
 
+    // Verifica se todos os campos foram preenchidos (removendo espaços em branco)
+    const isFormValid = topico.trim() !== "" && horas.trim() !== "" && descricao.trim() !== "";
+
     const handleEnviar = () => {
         navigate('/');
     };
 
     return (
         <Base>
-            <Titulo>
-                FORMULÁRIO
-            </Titulo>
+            <Titulo>FORMULÁRIO</Titulo>
 
             <div style={{ width: '100%' }}>
-                <TextoAzul>
-                    Tópico
-                </TextoAzul>
+                <TextoAzul>Tópico</TextoAzul>
                 <Input
                     placeholder={"Preencha o tópico"}
                     type="text"
@@ -37,9 +36,7 @@ const Formulario = () => {
             </div>
 
             <div style={{ width: '100%' }}>
-                <TextoAzul>
-                    Horas
-                </TextoAzul>
+                <TextoAzul>Horas</TextoAzul>
                 <Input
                     placeholder={"Preencha as horas"}
                     type="number"
@@ -49,9 +46,7 @@ const Formulario = () => {
             </div>
 
             <div style={{ width: '100%' }}>
-                <TextoAzul>
-                    Descrição
-                </TextoAzul>
+                <TextoAzul>Descrição</TextoAzul>
                 <TextArea
                     placeholder={"Preencha a descrição"}
                     value={descricao}
@@ -59,7 +54,7 @@ const Formulario = () => {
                 />
             </div>
 
-            <BotaoPrimario onClick={handleEnviar}>
+            <BotaoPrimario onClick={handleEnviar} disabled={!isFormValid}>
                 Enviar
             </BotaoPrimario>
 

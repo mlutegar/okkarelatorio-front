@@ -1,9 +1,9 @@
 import React from 'react';
 import {BotaoPrimarioStyle} from './Style';
 
-const BotaoPrimario = ({children, onClick}) => {
+const BotaoPrimario = ({children, onClick, disabled}) => {
     return (
-        <BotaoPrimarioStyle onClick={onClick}>
+        <BotaoPrimarioStyle onClick={onClick} disabled={disabled}>
             {children}
         </BotaoPrimarioStyle>
     );

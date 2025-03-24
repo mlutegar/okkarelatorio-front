@@ -7,7 +7,7 @@ export const textContainer = {
     flexShrink: 0,
 
     color: 'rgba(0, 0, 0, 0.50)',
-    fontFamily: '"TT Chocolates Trl"',
+    fontFamily: '"TTChocTest"',
     fontSize: '1rem',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -23,7 +23,7 @@ export const historicoContainer = {
     flexShrink: 0,
 
     color: '#000',
-    fontFamily: '"TT Chocolates Trl"',
+    fontFamily: '"TTChocTest"',
     fontSize: '2.25rem',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -40,7 +40,7 @@ export const historicoBlueContainer = {
     flexShrink: 0,
 
     color: '#063D86',
-    fontFamily: '"TT Chocolates Trl"',
+    fontFamily: '"TTChocTest"',
     fontSize: '1rem',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -57,7 +57,7 @@ export const BotaoPrimarioStyle = styled.button`
 
     color: #FFBD59;
     text-align: center;
-    font-family: "TT Chocolates Trl";
+    font-family: "TTChocTest";
     font-size: 1rem;
     font-style: normal;
     font-weight: 600;
@@ -71,5 +71,15 @@ export const BotaoPrimarioStyle = styled.button`
 
     &:hover {
         background: #064aa4;
+    }
+    
+    &:active {
+        background: #063D86;
+    }
+    
+    &:disabled {
+        background: #063D8680;
+        color: #FFBD5980;
+        cursor: not-allowed;
     }
 `;

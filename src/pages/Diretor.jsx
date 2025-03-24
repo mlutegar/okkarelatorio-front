@@ -1,11 +1,10 @@
 import Base from "./Base"
 import Titulo from "../components/Elementos/Textos/Titulo/Titulo";
 import Subtitulo from "../components/Elementos/Textos/Subtitulo/Subtitulo";
-import BotaoAdd from "../components/Elementos/Botoes/BotaoAdd/BotaoAdd";
 import {useNavigate} from "react-router-dom";
 import CardRelatorio from "../components/CardRelatorio/CardRelatorio";
 
-const Colaborador = () => {
+const Diretor = () => {
     const navigate = useNavigate();
     const relatorio = {
         id: 1,
@@ -40,4 +39,4 @@ const Colaborador = () => {
     )
 }
 
-export default Colaborador
+export default Diretor

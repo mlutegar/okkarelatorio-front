@@ -5,7 +5,7 @@ export const textContainer = {
     flexShrink: 0,
 
     color: 'rgba(0, 0, 0, 0.50)',
-    fontFamily: '"TT Chocolates Trl"',
+    fontFamily: '"TTChocTest"',
     fontSize: '1rem',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -21,7 +21,7 @@ export const historicoContainer = {
     flexShrink: 0,
 
     color: '#000',
-    fontFamily: '"TT Chocolates Trl"',
+    fontFamily: '"TTChocTest"',
     fontSize: '2.25rem',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -38,7 +38,7 @@ export const historicoBlueContainer = {
     flexShrink: 0,
 
     color: '#063D86',
-    fontFamily: '"TT Chocolates Trl"',
+    fontFamily: '"TTChocTest"',
     fontSize: '1rem',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -55,7 +55,7 @@ export const historicoButtonStyle = {
 
     color: '#FFBD59',
     textAlign: 'center',
-    fontFamily: '"TT Chocolates Trl"',
+    fontFamily: '"TTChocTest"',
     fontSize: '1rem',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -69,7 +69,7 @@ export const historicoButtonStyle = {
 
 export const textoHeaderStyle = {
     color: '#063D86',
-    fontFamily: '"TT Chocolates Trl"',
+    fontFamily: '"TTChocTest"',
     fontSize: '0.75rem',
     fontStyle: 'normal',
     fontWeight: 600,

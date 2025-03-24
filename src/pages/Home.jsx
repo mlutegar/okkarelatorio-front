@@ -11,7 +11,7 @@ const Home = () => {
         const tipo = localStorage.getItem("tipo");
 
         if (!token) {
-            navigate("/colaborador");
+            navigate("/presidente");
         }
 
         if (tipo === "professor") {

@@ -6,7 +6,7 @@ const StyleText = styled.input`
     flex-shrink: 0;
 
     color: rgba(0, 0, 0, 0.50);
-    font-family: "TT Chocolates Trl";
+    font-family: "TTChocTest";
     font-size: 1rem;
     font-style: normal;
     font-weight: 600;
