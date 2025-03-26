@@ -10,12 +10,12 @@ import login from "../api/login";
 
 const Login = () => {
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
+    const [matricula, setMatricula] = useState("");
     const [senha, setSenha] = useState("");
     const [erro, setErro] = useState(null);
 
     const handleLogin = async () => {
-        const sucesso = await login(email, senha);
+        const sucesso = await login(matricula, senha);
         if (sucesso) {
             navigate('/');
         } else {
@@ -28,11 +28,11 @@ const Login = () => {
             <Titulo>Login</Titulo>
 
             <div style={{ width: '100%' }}>
-                <TextoAzul>Email</TextoAzul>
+                <TextoAzul>Matricula</TextoAzul>
                 <Input
-                    placeholder="Digite seu email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Digite sua matricula"
+                    value={matricula}
+                    onChange={(e) => setMatricula(e.target.value)}
                 />
             </div>
 

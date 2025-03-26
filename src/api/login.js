@@ -1,12 +1,7 @@
 import Cookies from 'js-cookie';
 import API_BASE_URL from '../../config';
+import fetchAndSaveUser from "./username";
 
-/**
- * Função para realizar o login do usuário.
- * @param {string} matricula - Matrícula do usuário.
- * @param {string} senha - Senha do usuário.
- * @returns {Promise<boolean>} Retorna true se o login for bem-sucedido, caso contrário, retorna false.
- */
 async function login(matricula, senha) {
     const csrftoken = Cookies.get('csrftoken');
 
@@ -25,11 +20,17 @@ async function login(matricula, senha) {
 
         if (response.ok) {
             const data = await response.json();
-            // Armazena o token ou realize outras ações necessárias
             localStorage.setItem("token", data.token);
-            return true;
+            localStorage.setItem("matricula", matricula);
+            localStorage.setItem("password", senha);
+
+            if (await fetchAndSaveUser(matricula)) {
+                return true;
+            }
+
+            console.error("Erro ao buscar e salvar os dados do usuário");
+            return false;
         } else {
-            // Se houver erro, pode-se tratar a resposta ou logar o erro
             console.warn("Erro no login:", await response.json());
             return false;
         }

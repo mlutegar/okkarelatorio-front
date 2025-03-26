@@ -6,14 +6,22 @@ import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPri
 import BotaoCancelar from "../components/Elementos/Botoes/BotaoCancelar/BotaoCancelar";
 import FormularioComCheck from "../components/Elementos/Input/FormularioComCheck/FormularioComCheck";
 import FormularioTextAreaSemCheck from "../components/Elementos/Input/FormularioTextAreaComCheck/FormularioTextAreaComCheck";
+import enviarRelatorio from "../api/enviarRelatorio";
+import atualizarRelatorioDiretor from "../api/atualizarRelatorioDiretor";
 
 const FormularioDiretor = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { relatorio } = location.state || {};
-    const [topico, setTopico] = useState(relatorio ? relatorio.topico : "");
-    const [horas, setHoras] = useState(relatorio ? relatorio.horas : "");
-    const [descricao, setDescricao] = useState(relatorio && relatorio.descricao ? relatorio.descricao : "");
+
+    const [idRelatorio, setId] = useState(relatorio ? relatorio.id : "");
+    const [topico, setTopico] = useState(relatorio ? relatorio.titulo : "");
+    const [horas, setHoras] = useState(relatorio ? relatorio.hora : "");
+    const [descricaoRelatorio, setDescricao] = useState(relatorio && relatorio.descricao ? relatorio.descricao : "");
+
+    const [topicoAlterado, setTopicoAlterado] = useState(topico);
+    const [horasAlteradas, setHorasAlteradas] = useState(horas);
+    const [descricaoAlterada, setDescricaoAlterada] = useState(descricaoRelatorio);
 
     // Estados para armazenar o status de check de cada campo
     const [checkStatusTopico, setCheckStatusTopico] = useState(null);
@@ -23,19 +31,35 @@ const FormularioDiretor = () => {
     useEffect(() => {
         if (relatorio) {
             console.log("Relatório recebido:", relatorio);
-            setTopico(relatorio.topico);
-            setHoras(relatorio.horas);
+            setTopico(relatorio.titulo);
+            setHoras(relatorio.hora);
             setDescricao(relatorio.descricao || "");
+            setId(relatorio.id);
         }
+
+        console.log("Relatório:", relatorio);
     }, [relatorio]);
 
-    // Verifica se todos os campos tiveram seu check definido
     const isFormValid = checkStatusTopico !== null && checkStatusHoras !== null && checkStatusDescricao !== null;
 
-    const handleEnviar = () => {
-        // Trate aqui o envio dos dados do formulário
-        console.log("Dados do formulário:", { topico, horas, descricao });
-        navigate('/');
+    const handleEnviar = async () => {
+        console.log("Enviando relatório...");
+        console.log("Topico:", topicoAlterado);
+        console.log("Horas:", horasAlteradas);
+        console.log("Descrição:", descricaoAlterada);
+
+        const id = idRelatorio;
+        const matricula = localStorage.getItem('matricula');;
+        const hora_modificada = horasAlteradas;
+        const descricao_modificada = descricaoAlterada;
+        const titulo_modificada = topicoAlterado;
+
+        const success = await atualizarRelatorioDiretor(id, matricula, hora_modificada, descricao_modificada, titulo_modificada);
+        if (success) {
+            navigate('/');
+        } else {
+            alert("Falha ao enviar relatório");
+        }
     };
 
     return (
@@ -47,6 +71,8 @@ const FormularioDiretor = () => {
                 placeholder={topico}
                 type={"text"}
                 onCheckChange={setCheckStatusTopico}
+                value={topicoAlterado}
+                setValue={setTopicoAlterado}
             />
 
             <FormularioComCheck
@@ -54,15 +80,21 @@ const FormularioDiretor = () => {
                 placeholder={horas}
                 type={"number"}
                 onCheckChange={setCheckStatusHoras}
+                value={horasAlteradas}
+                setValue={setHorasAlteradas}
             />
 
             <FormularioTextAreaSemCheck
                 label={"Descrição"}
-                placeholder={descricao}
+                placeholder={descricaoRelatorio}
                 onCheckChange={setCheckStatusDescricao}
+                value={descricaoAlterada}
+                setValue={setDescricaoAlterada}
             />
 
-            <BotaoPrimario onClick={handleEnviar} disabled={!isFormValid}>
+            <BotaoPrimario onClick={handleEnviar}
+                           disabled={!isFormValid}
+            >
                 Enviar
             </BotaoPrimario>
 

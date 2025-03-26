@@ -7,18 +7,28 @@ import Input from "../components/Input/Input";
 import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPrimario";
 import BotaoCancelar from "../components/Elementos/Botoes/BotaoCancelar/BotaoCancelar";
 import TextArea from "../components/TextArea/TextArea";
+import enviarRelatorio from "../api/enviarRelatorio";
 
 const Formulario = () => {
     const navigate = useNavigate();
     const [topico, setTopico] = useState("");
     const [horas, setHoras] = useState("");
     const [descricao, setDescricao] = useState("");
-
-    // Verifica se todos os campos foram preenchidos (removendo espaços em branco)
     const isFormValid = topico.trim() !== "" && horas.trim() !== "" && descricao.trim() !== "";
 
-    const handleEnviar = () => {
-        navigate('/');
+
+    const handleEnviar = async () => {
+        const colaborador = localStorage.getItem('matricula');
+        const setor = localStorage.getItem('setor');
+        const titulo = topico;
+        const hora = horas;
+
+        const success = await enviarRelatorio(colaborador, setor, titulo, descricao, hora);
+        if (success) {
+            navigate('/');
+        } else {
+            alert("Falha ao enviar relatório");
+        }
     };
 
     return (

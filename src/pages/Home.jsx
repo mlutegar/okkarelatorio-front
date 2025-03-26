@@ -8,26 +8,31 @@ const Home = () => {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        const tipo = localStorage.getItem("tipo");
+        const cargo = localStorage.getItem("cargo");
 
         if (!token) {
+            navigate("/login");
+        }
+
+        if (cargo === "colaborador") {
+            navigate("/colaborador");
+        }
+
+        if (cargo === "diretor") {
+            navigate("/diretor");
+        }
+
+        if (cargo === "presidente") {
             navigate("/presidente");
         }
 
-        if (tipo === "professor") {
-            navigate("/professor");
-        }
-
     }, [navigate]);
-  
 
-  return (
-    <Base>
-        <Titulo>
-            HISTÓRICO
-        </Titulo>
-    </Base>
-  )
+
+    return (
+        <Base>
+        </Base>
+    )
 }
 
 export default Home

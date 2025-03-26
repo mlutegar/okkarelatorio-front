@@ -16,10 +16,10 @@ const FormularioPresidente = () => {
     const location = useLocation();
     const {relatorio} = location.state || {};
 
-    const [topico, setTopico] = useState(relatorio ? relatorio.topico : "");
-    const [topicoModificado, setTopicoModificado] = useState(relatorio ? relatorio.topico_modificado : "");
+    const [topico, setTopico] = useState(relatorio ? relatorio.titulo : "");
+    const [topicoModificado, setTopicoModificado] = useState(relatorio ? relatorio.titulo_modificado : "");
 
-    const [horas, setHoras] = useState(relatorio ? relatorio.horas : "");
+    const [horas, setHoras] = useState(relatorio ? relatorio.hora : "");
     const [horasModificado, setHorasModificado] = useState(relatorio ? relatorio.hora_modificada : "");
 
     const [descricao, setDescricao] = useState(relatorio ? relatorio.descricao : "");
@@ -36,10 +36,10 @@ const FormularioPresidente = () => {
     useEffect(() => {
         if (relatorio) {
             console.log("Relatório recebido:", relatorio);
-            setTopico(relatorio.topico);
-            setHoras(relatorio.horas);
+            setTopico(relatorio.titulo);
+            setHoras(relatorio.hora);
             setDescricao(relatorio.descricao || "");
-            setTopicoModificado(relatorio.topico_modificado);
+            setTopicoModificado(relatorio.titulo_modificado);
             setHorasModificado(relatorio.hora_modificada);
             setDescricaoModificada(relatorio.descricao_modificada);
             setColaborador(relatorio.colaborador);

@@ -4,14 +4,14 @@ import BotoesCheck from "../../../Secoes/BotoesCheck/BotoesCheck";
 import Input from "../../../Input/Input";
 import { useState, useEffect } from "react";
 
-const FormularioComCheck = ({ label, placeholder, type, onCheckChange }) => {
+const FormularioComCheck = ({ label, placeholder, type, onCheckChange, value, setValue }) => {
     // Inicializa o estado com o valor recebido
-    const [valor, setValor] = useState(placeholder);
+    // const [valor, setValor] = useState(placeholder);
     const [checkStatus, setCheckStatus] = useState(null);
 
     useEffect(() => {
         if (checkStatus !== "negar") {
-            setValor(placeholder);
+            if(setValue) setValue(placeholder);
         }
     }, [checkStatus, placeholder]);
 
@@ -19,6 +19,10 @@ const FormularioComCheck = ({ label, placeholder, type, onCheckChange }) => {
         setCheckStatus(status);
         if (onCheckChange) onCheckChange(status);
     };
+
+    const handleValueChange = (e) => {
+        if(setValue) setValue(e.target.value);
+    }
 
     return (
         <FormularioComCheckStyle>
@@ -29,8 +33,8 @@ const FormularioComCheck = ({ label, placeholder, type, onCheckChange }) => {
             <Input
                 placeholder={placeholder}
                 type={type}
-                value={valor}
-                onChange={(e) => setValor(e.target.value)}
+                value={value}
+                onChange={handleValueChange}
                 disabled={checkStatus !== "negar"}
             />
         </FormularioComCheckStyle>
