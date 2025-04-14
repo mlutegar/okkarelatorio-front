@@ -11,7 +11,7 @@ export const TextAreaStyle = styled.textarea`
     margin-top: 1rem;
 
     color: rgba(0, 0, 0, 0.50);
-    font-family: "TTChocTest";
+    font-family: "TT Chocolates Regular";
     font-size: 1rem;
     font-style: normal;
     font-weight: 600;

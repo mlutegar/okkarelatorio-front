@@ -3,7 +3,7 @@ import TextoAzul from "../../Textos/TextoAzul/TextoAzul";
 import TextArea from "../../../TextArea/TextArea";
 import { useState } from "react";
 
-const FormularioTextAreaSemCheck = ({ label, placeholder, onCheckChange }) => {
+const FormularioTextAreaSemCheck = ({ label, placeholder }) => {
     const [valor, setValor] = useState(placeholder);
 
     return (

@@ -1,12 +1,17 @@
-import Base from "./Base"
+import Base from "./Base";
 import Titulo from "../components/Elementos/Textos/Titulo/Titulo";
 import Subtitulo from "../components/Elementos/Textos/Subtitulo/Subtitulo";
+import BotaoAdd from "../components/Elementos/Botoes/BotaoAdd/BotaoAdd";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import fetchRelatorio from "../api/fetchRelatorio";
+import fetchRelatorioPorMatricula from "../api/fetchRelatorioPorMatricula";
 import CardRelatorioPresidente from "../components/CardRelatorioPresidente/CardRelatorioPresidente";
+import CardRelatorio from "../components/CardRelatorio/CardRelatorio";
 import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPrimario";
+import fetchRelatorioFinalizado from "../api/fetchRelatorioFinalizado";
+import BotaoSecundario from "../components/Elementos/Botoes/BotaoSecundario/BotaoSecundario";
 
+// Função para formatar a data
 const formatDate = (dateString) => {
     const date = new Date(dateString); // Cria um objeto Date a partir da string
     const year = date.getFullYear();
@@ -15,57 +20,55 @@ const formatDate = (dateString) => {
     return `${year} ${month} ${day}`;
 };
 
-const Presidente = () => {
-    const navigate = useNavigate();
+const HistoricoPresidente = () => {
     const [relatorios, setRelatorios] = useState([]);
-    const setor = localStorage.getItem("setor");
+    const matricula = localStorage.getItem("matricula");
 
     useEffect(() => {
         const fetchRelatorios = async () => {
-            const relatoriosFetch = await fetchRelatorio();
-            console.log("Relatórios:", relatoriosFetch);
+            const relatoriosFetch = await fetchRelatorioFinalizado();
             if (relatoriosFetch) {
                 setRelatorios(relatoriosFetch);
             }
         };
 
         fetchRelatorios();
-    }, [setor, relatorios]); // Adicionando matricula como dependência
+    }, [matricula]); // Adicionando matricula como dependência
 
-
-    return (
-        <Base>
+    const navigate = useNavigate();
+    return (<Base>
             <Titulo>
-                Pendente
+                HISTÓRICO
             </Titulo>
 
-            {!relatorios.length && (
-                <Subtitulo>
-                    Sem pendência. Espere algum diretor mandar algo.
-                </Subtitulo>
-            )}
-
-            {relatorios.map((relatorio) => (
-                <CardRelatorioPresidente
-                    onClick={() => navigate("/formulario-presidente", { state: { relatorio } })}
+            {relatorios.map((relatorio) => (<CardRelatorio
+                onClick={() => navigate("/visualizar-card", { state: { relatorio } })}
                     colaborador={relatorio.colaborador}
                     data={formatDate(relatorio.data_criacao)} // Formata a data aqui
                     topico={relatorio.titulo}
-                    topico_modificado={relatorio.titulo_modificado}
                     horas={relatorio.hora}
-                    horas_modificado={relatorio.hora_modificada}
                     descricao={relatorio.descricao}
-                    diretor={relatorio.diretor}
-                />
-            ))}
+                />))}
+
+            {!relatorios.length && (<Subtitulo>
+                    Sem relatórios enviados
+                </Subtitulo>)}
+
+        <BotaoSecundario
+            onClick={() => {
+                window.location.href = 'https://okarelatorio.fly.dev/api/export-excel';
+            }}
+        >
+            Exportar
+        </BotaoSecundario>
 
             <BotaoPrimario
-                onClick={() => navigate("/historico")}
+                onClick={() => navigate('/presidente')}
             >
-                Vê Histórico
+                Voltar
             </BotaoPrimario>
-        </Base>
-    )
-}
 
-export default Presidente
+        </Base>);
+};
+
+export default HistoricoPresidente;

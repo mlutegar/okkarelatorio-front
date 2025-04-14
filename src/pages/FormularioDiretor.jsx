@@ -6,7 +6,6 @@ import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPri
 import BotaoCancelar from "../components/Elementos/Botoes/BotaoCancelar/BotaoCancelar";
 import FormularioComCheck from "../components/Elementos/Input/FormularioComCheck/FormularioComCheck";
 import FormularioTextAreaSemCheck from "../components/Elementos/Input/FormularioTextAreaComCheck/FormularioTextAreaComCheck";
-import enviarRelatorio from "../api/enviarRelatorio";
 import atualizarRelatorioDiretor from "../api/atualizarRelatorioDiretor";
 
 const FormularioDiretor = () => {
@@ -23,31 +22,22 @@ const FormularioDiretor = () => {
     const [horasAlteradas, setHorasAlteradas] = useState(horas);
     const [descricaoAlterada, setDescricaoAlterada] = useState(descricaoRelatorio);
 
-    // Estados para armazenar o status de check de cada campo
     const [checkStatusTopico, setCheckStatusTopico] = useState(null);
     const [checkStatusHoras, setCheckStatusHoras] = useState(null);
     const [checkStatusDescricao, setCheckStatusDescricao] = useState(null);
 
     useEffect(() => {
         if (relatorio) {
-            console.log("Relatório recebido:", relatorio);
             setTopico(relatorio.titulo);
             setHoras(relatorio.hora);
             setDescricao(relatorio.descricao || "");
             setId(relatorio.id);
         }
-
-        console.log("Relatório:", relatorio);
     }, [relatorio]);
 
     const isFormValid = checkStatusTopico !== null && checkStatusHoras !== null && checkStatusDescricao !== null;
 
     const handleEnviar = async () => {
-        console.log("Enviando relatório...");
-        console.log("Topico:", topicoAlterado);
-        console.log("Horas:", horasAlteradas);
-        console.log("Descrição:", descricaoAlterada);
-
         const id = idRelatorio;
         const matricula = localStorage.getItem('matricula');;
         const hora_modificada = horasAlteradas;

@@ -10,7 +10,7 @@ export const BotaoSecundarioStyle = styled.button`
 
   color: #063D86;
   text-align: center;
-  font-family: "TTChocTest";
+  font-family: "TT Chocolates Regular";
   font-size: 1rem;
   font-style: normal;
   font-weight: 600;

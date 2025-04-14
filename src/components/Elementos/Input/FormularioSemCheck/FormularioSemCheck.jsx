@@ -1,22 +1,10 @@
 import { FormularioSemCheckStyle } from "./Style";
 import TextoAzul from "../../Textos/TextoAzul/TextoAzul";
 import Input from "../../../Input/Input";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-const FormularioSemCheck = ({ label, placeholder, type, onCheckChange }) => {
+const FormularioSemCheck = ({ label, placeholder, type }) => {
     const [valor, setValor] = useState(placeholder);
-    const [checkStatus, setCheckStatus] = useState(null);
-
-    useEffect(() => {
-        if (checkStatus !== "negar") {
-            setValor(placeholder);
-        }
-    }, [checkStatus, placeholder]);
-
-    const handleCheckSelect = (status) => {
-        setCheckStatus(status);
-        if (onCheckChange) onCheckChange(status);
-    };
 
     return (
         <FormularioSemCheckStyle>

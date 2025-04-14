@@ -1,5 +1,5 @@
 import styled from "styled-components"
 
-export const FormularioTextAreaComCheckStyle = styled.div`
+export const FormularioTextAreaSemCheckStyle = styled.div`
     width: 100%;
 `

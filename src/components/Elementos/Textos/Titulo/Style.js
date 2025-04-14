@@ -6,7 +6,7 @@ export const textContainer = {
     flexShrink: 0,
 
     color: 'rgba(0, 0, 0, 0.50)',
-    fontFamily: '"TTChocTest"',
+    fontFamily: "TT Chocolates Regular",
     fontSize: '1rem',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -23,7 +23,7 @@ export const TituloStyle = styled.header`
     text-align: left;
 
     color: #000;
-    font-family: TT Chocolates Trl,serif;
+    font-family: "TT Chocolates Regular" ,serif;
     font-size: 2.25rem;
     font-style: normal;
     font-weight: 600;

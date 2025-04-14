@@ -23,9 +23,7 @@ const Colaborador = () => {
 
     useEffect(() => {
         const fetchRelatorios = async () => {
-            console.log("Matrícula:", matricula);
             const relatoriosFetch = await fetchRelatorioPorMatricula(matricula);
-            console.log("Relatórios:", relatoriosFetch);
             if (relatoriosFetch) {
                 setRelatorios(relatoriosFetch);
             }
@@ -41,7 +39,7 @@ const Colaborador = () => {
             </Titulo>
 
             {relatorios.map((relatorio) => (<CardRelatorio
-                    onClick={() => navigate("/formulario-presidente", {state: {relatorio}})}
+                    onClick={() => {}}
                     colaborador={relatorio.colaborador}
                     data={formatDate(relatorio.data_criacao)} // Formata a data aqui
                     topico={relatorio.titulo}

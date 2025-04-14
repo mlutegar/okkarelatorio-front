@@ -5,7 +5,7 @@ export const textContainer = {
     flexShrink: 0,
 
     color: 'rgba(0, 0, 0, 0.50)',
-    fontFamily: '"TTChocTest"',
+    fontFamily: "TT Chocolates Regular",
     fontSize: '1rem',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -21,7 +21,7 @@ export const historicoContainer = {
     flexShrink: 0,
 
     color: '#000',
-    fontFamily: '"TTChocTest"',
+    fontFamily: "TT Chocolates Regular",
     fontSize: '2.25rem',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -37,7 +37,7 @@ export const historicoBlueContainer = {
     flexShrink: 0,
 
     color: '#AB2525',
-    fontFamily: '"TTChocTest"',
+    fontFamily: "TT Chocolates Regular",
     fontSize: '1rem',
     fontStyle: 'normal',
     fontWeight: 600,

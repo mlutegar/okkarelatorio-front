@@ -3,21 +3,17 @@ import Base from "./Base";
 import Titulo from "../components/Elementos/Textos/Titulo/Titulo";
 import {useLocation, useNavigate} from "react-router-dom";
 import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPrimario";
-import BotaoCancelar from "../components/Elementos/Botoes/BotaoCancelar/BotaoCancelar";
 import FormularioComCheck from "../components/Elementos/Input/FormularioComCheck/FormularioComCheck";
 import FormularioTextAreaSemCheck
     from "../components/Elementos/Input/FormularioTextAreaSemCheck/FormularioTextAreaSemCheck";
 import FormularioSemCheck from "../components/Elementos/Input/FormularioSemCheck/FormularioSemCheck";
 import FormularioTextAreaComCheck
     from "../components/Elementos/Input/FormularioTextAreaComCheck/FormularioTextAreaComCheck";
-import atualizarRelatorioPresidente from "../api/atualizarRelatorioPresidente";
 
-const FormularioPresidente = () => {
+const VisualizarCard = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const {relatorio} = location.state || {};
-
-    const [idRelatorio, setId] = useState(relatorio ? relatorio.id : "");
     const [topico, setTopico] = useState(relatorio ? relatorio.titulo : "");
     const [horas, setHoras] = useState(relatorio ? relatorio.hora : "");
     const [descricao, setDescricao] = useState(relatorio ? relatorio.descricao : "");
@@ -25,13 +21,6 @@ const FormularioPresidente = () => {
     const [topicoModificado, setTopicoModificado] = useState(relatorio ? relatorio.titulo_modificado : "");
     const [horasModificado, setHorasModificado] = useState(relatorio ? relatorio.hora_modificada : "");
     const [descricaoModificada, setDescricaoModificada] = useState(relatorio ? relatorio.descricao_modificada : "");
-    const [colaborador, setColaborador] = useState(relatorio ? relatorio.colaborador : "");
-    const [diretor, setDiretor] = useState(relatorio ? relatorio.diretor : "");
-
-    // Estados para armazenar o status de check de cada campo
-    const [checkStatusTopico, setCheckStatusTopico] = useState(null);
-    const [checkStatusHoras, setCheckStatusHoras] = useState(null);
-    const [checkStatusDescricao, setCheckStatusDescricao] = useState(null);
 
     useEffect(() => {
         if (relatorio) {
@@ -42,39 +31,8 @@ const FormularioPresidente = () => {
             setTopicoModificado(relatorio.titulo_modificado);
             setHorasModificado(relatorio.hora_modificada);
             setDescricaoModificada(relatorio.descricao_modificada);
-            setColaborador(relatorio.colaborador);
-            setDiretor(relatorio.diretor);
         }
     }, [relatorio]);
-
-    // Verifica se todos os campos tiveram seu check definido
-    const isFormValid = checkStatusTopico !== null && checkStatusHoras !== null && checkStatusDescricao !== null;
-
-    const handleEnviar = () => {
-        console.log("Enviando relatório...");
-
-        console.log("Topico:", topico);
-        console.log("Horas:", horas);
-        console.log("Descrição:", descricao);
-
-        console.log("Topico Modificado:", topicoModificado);
-        console.log("Horas Modificado:", horasModificado);
-        console.log("Descrição Modificada:", descricaoModificada);
-
-        const id = idRelatorio;
-        const matricula = localStorage.getItem('matricula');
-        const hora_modificada = horasModificado;
-        const descricao_modificada = descricaoModificada;
-        const titulo_modificado = topicoModificado;
-
-        const success = atualizarRelatorioPresidente(id, matricula, hora_modificada, descricao_modificada, titulo_modificado);
-
-        if (success) {
-            navigate('/');
-        } else {
-            alert("Falha ao enviar relatório");
-        }
-    };
 
     return (
         <Base>
@@ -86,9 +44,7 @@ const FormularioPresidente = () => {
                             label={"Tópico"}
                             placeholder={topicoModificado}
                             type={"text"}
-                            onCheckChange={setCheckStatusTopico}
                             value={topicoModificado}
-                            setValue={setTopicoModificado}
                         />
                         <FormularioSemCheck
                             label={""}
@@ -101,9 +57,7 @@ const FormularioPresidente = () => {
                     label={"Tópico"}
                     placeholder={topico}
                     type={"text"}
-                    onCheckChange={setCheckStatusTopico}
                     value={topicoModificado}
-                    setValue={setTopicoModificado}
                 />
             }
 
@@ -113,9 +67,7 @@ const FormularioPresidente = () => {
                             label={"Horas"}
                             placeholder={horasModificado}
                             type={"number"}
-                            onCheckChange={setCheckStatusHoras}
                             value={horasModificado}
-                            setValue={setHorasModificado}
                         />
                         <FormularioSemCheck
                             label={""}
@@ -128,9 +80,7 @@ const FormularioPresidente = () => {
                     label={"Horas"}
                     placeholder={horas + "h"}
                     type={"number"}
-                    onCheckChange={setCheckStatusHoras}
                     value={horasModificado}
-                    setValue={setHorasModificado}
                 />
             }
 
@@ -139,35 +89,26 @@ const FormularioPresidente = () => {
                         <FormularioTextAreaComCheck
                             label={"Descrição"}
                             placeholder={descricaoModificada}
-                            onCheckChange={setCheckStatusDescricao}
                             value={descricaoModificada}
-                            setValue={setDescricaoModificada}
                         />
                         <FormularioTextAreaSemCheck
                             label={""}
                             placeholder={descricao}
-                            onCheckChange={setCheckStatusDescricao}
                         />
                     </div>
                 ) :
                 <FormularioTextAreaComCheck
                     label={"Descrição"}
                     placeholder={descricao}
-                    onCheckChange={setCheckStatusDescricao}
                     value={descricaoModificada}
-                    setValue={setDescricaoModificada}
                 />
             }
 
-            <BotaoPrimario onClick={handleEnviar} disabled={!isFormValid}>
-                Enviar
+            <BotaoPrimario onClick={() => navigate('/historico')}>
+                Voltar
             </BotaoPrimario>
-
-            <BotaoCancelar onClick={() => navigate('/')}>
-                Cancelar
-            </BotaoCancelar>
         </Base>
     );
 };
 
-export default FormularioPresidente;
+export default VisualizarCard;
