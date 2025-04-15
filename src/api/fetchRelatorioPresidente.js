@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-async function fetchRelatorio() {
+async function fetchRelatorioPresidente() {
     const url = `https://okkarelatorio.fly.dev/api/relatorios/`; // URL para buscar todos os relatórios
     const csrftoken = Cookies.get('csrftoken');
 
@@ -47,4 +47,4 @@ async function fetchRelatorio() {
     }
 }
 
-export default fetchRelatorio;
+export default fetchRelatorioPresidente;

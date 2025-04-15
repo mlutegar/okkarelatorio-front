@@ -1,0 +1,37 @@
+import Cookies from "js-cookie";
+
+async function enviarRelatorioDiretor(diretor, setor, titulo, descricao, hora) {
+    const url = `https://okkarelatorio.fly.dev/api/relatorios/`;
+    const csrftoken = Cookies.get('csrftoken');
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "X-CSRFToken": csrftoken,
+            },
+            body: JSON.stringify({
+                colaborador: diretor,  // Diretor é o próprio colaborador neste caso
+                diretor: diretor,      // Diretor é o mesmo que o colaborador
+                setor: setor,
+                titulo: titulo,
+                descricao: descricao,
+                hora: hora,
+                aprovado_direroria: true,  // Já aprova automaticamente pela diretoria
+                aprovado_presidencia: false
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Erro ao enviar relatório');
+        }
+
+        return true;
+    } catch (error) {
+        console.error('Erro ao enviar relatório:', error);
+        return false;
+    }
+}
+
+export default enviarRelatorioDiretor;

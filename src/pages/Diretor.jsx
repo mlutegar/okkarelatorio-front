@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import CardRelatorio from "../components/CardRelatorio/CardRelatorio";
 import fetchRelatorioPorSetor from "../api/fetchRelatorioPorSetor";
 import {useEffect, useState} from "react";
+import BotaoAdd from "../components/Elementos/Botoes/BotaoAdd/BotaoAdd";
 
 const formatDate = (dateString) => {
     const date = new Date(dateString); // Cria um objeto Date a partir da string
@@ -53,6 +54,10 @@ const Diretor = () => {
                     horas={relatorio.hora}
                 />
             ))}
+
+            <BotaoAdd
+                onClick={() => navigate('/formulario-diretor-novo')}
+            />
         </Base>
     )
 }

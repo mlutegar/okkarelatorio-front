@@ -3,7 +3,7 @@ import Titulo from "../components/Elementos/Textos/Titulo/Titulo";
 import Subtitulo from "../components/Elementos/Textos/Subtitulo/Subtitulo";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import fetchRelatorio from "../api/fetchRelatorio";
+import fetchRelatorioPresidente from "../api/fetchRelatorioPresidente";
 import CardRelatorioPresidente from "../components/CardRelatorioPresidente/CardRelatorioPresidente";
 import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPrimario";
 
@@ -22,7 +22,7 @@ const Presidente = () => {
 
     useEffect(() => {
         const fetchRelatorios = async () => {
-            const relatoriosFetch = await fetchRelatorio();
+            const relatoriosFetch = await fetchRelatorioPresidente();
             console.log("Relatórios:", relatoriosFetch);
             if (relatoriosFetch) {
                 setRelatorios(relatoriosFetch);
