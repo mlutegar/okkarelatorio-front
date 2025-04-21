@@ -51,7 +51,7 @@ const Diretor = () => {
                     colaborador={relatorio.colaborador}
                     data={formatDate(relatorio.data_criacao)} // Formata a data aqui
                     topico={relatorio.titulo}
-                    horas={relatorio.hora}
+                    minutos={relatorio.minutos}
                 />
             ))}
 

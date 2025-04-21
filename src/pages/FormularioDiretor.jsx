@@ -7,6 +7,7 @@ import BotaoCancelar from "../components/Elementos/Botoes/BotaoCancelar/BotaoCan
 import FormularioComCheck from "../components/Elementos/Input/FormularioComCheck/FormularioComCheck";
 import FormularioTextAreaSemCheck from "../components/Elementos/Input/FormularioTextAreaComCheck/FormularioTextAreaComCheck";
 import atualizarRelatorioDiretor from "../api/atualizarRelatorioDiretor";
+import FormularioTempoComCheck from "../components/Elementos/Input/FormularioTempoComCheck/FormularioTempoComCheck";
 
 const FormularioDiretor = () => {
     const navigate = useNavigate();
@@ -15,11 +16,11 @@ const FormularioDiretor = () => {
 
     const [idRelatorio, setId] = useState(relatorio ? relatorio.id : "");
     const [topico, setTopico] = useState(relatorio ? relatorio.titulo : "");
-    const [horas, setHoras] = useState(relatorio ? relatorio.hora : "");
+    const [tempoEmMinutos, setTempoEmMinutos] = useState(0);
     const [descricaoRelatorio, setDescricao] = useState(relatorio && relatorio.descricao ? relatorio.descricao : "");
 
     const [topicoAlterado, setTopicoAlterado] = useState(topico);
-    const [horasAlteradas, setHorasAlteradas] = useState(horas);
+    const [tempoEmMinutosAlterados, setTempoEmMinutosAlterados] = useState(0);
     const [descricaoAlterada, setDescricaoAlterada] = useState(descricaoRelatorio);
 
     const [checkStatusTopico, setCheckStatusTopico] = useState(null);
@@ -27,9 +28,11 @@ const FormularioDiretor = () => {
     const [checkStatusDescricao, setCheckStatusDescricao] = useState(null);
 
     useEffect(() => {
+        console.log("Relatório recebido:", relatorio);
+
         if (relatorio) {
             setTopico(relatorio.titulo);
-            setHoras(relatorio.hora);
+            setTempoEmMinutos(relatorio.minutos);
             setDescricao(relatorio.descricao || "");
             setId(relatorio.id);
         }
@@ -40,7 +43,7 @@ const FormularioDiretor = () => {
     const handleEnviar = async () => {
         const id = idRelatorio;
         const matricula = localStorage.getItem('matricula');;
-        const hora_modificada = horasAlteradas;
+        const hora_modificada = tempoEmMinutosAlterados;
         const descricao_modificada = descricaoAlterada;
         const titulo_modificada = topicoAlterado;
 
@@ -65,13 +68,12 @@ const FormularioDiretor = () => {
                 setValue={setTopicoAlterado}
             />
 
-            <FormularioComCheck
-                label={"Horas"}
-                placeholder={horas}
-                type={"number"}
+            <FormularioTempoComCheck
+                label={"Tempo dedicado"}
+                valorPadrao={tempoEmMinutos} // Valor padrão em minutos
                 onCheckChange={setCheckStatusHoras}
-                value={horasAlteradas}
-                setValue={setHorasAlteradas}
+                value={tempoEmMinutosAlterados}
+                setValue={setTempoEmMinutosAlterados}
             />
 
             <FormularioTextAreaSemCheck

@@ -17,7 +17,7 @@ async function enviarRelatorioDiretor(diretor, setor, titulo, descricao, hora) {
                 setor: setor,
                 titulo: titulo,
                 descricao: descricao,
-                hora: hora,
+                minutos: hora,
                 aprovado_direroria: true,  // Já aprova automaticamente pela diretoria
                 aprovado_presidencia: false
             }),

@@ -8,7 +8,7 @@ const atualizarRelatorioDiretor = async (id, diretor, hora_modificada, descricao
     const authHeader = 'Basic ' + btoa(`${username}:${password}`);
     const json = JSON.stringify({
         diretor,
-        hora_modificada,
+        minutos_modificada: hora_modificada,
         descricao_modificada,
         titulo_modificado,
         aprovado_direroria: true, // Marca como aprovado pela diretoria

@@ -8,20 +8,21 @@ import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPri
 import BotaoCancelar from "../components/Elementos/Botoes/BotaoCancelar/BotaoCancelar";
 import TextArea from "../components/TextArea/TextArea";
 import enviarRelatorio from "../api/enviarRelatorio";
+import InputTempo from "../components/InputTempo/InputTempo";
 
 const Formulario = () => {
     const navigate = useNavigate();
     const [topico, setTopico] = useState("");
-    const [horas, setHoras] = useState("");
+    const [tempoEmMinutos, setTempoEmMinutos] = useState(0);
     const [descricao, setDescricao] = useState("");
-    const isFormValid = topico.trim() !== "" && horas.trim() !== "" && descricao.trim() !== "";
+    const isFormValid = topico.trim() !== "" && tempoEmMinutos !== 0 && descricao.trim() !== "";
 
 
     const handleEnviar = async () => {
         const colaborador = localStorage.getItem('matricula');
         const setor = localStorage.getItem('setor');
         const titulo = topico;
-        const hora = horas;
+        const hora = tempoEmMinutos;
 
         const success = await enviarRelatorio(colaborador, setor, titulo, descricao, hora);
         if (success) {
@@ -45,15 +46,7 @@ const Formulario = () => {
                 />
             </div>
 
-            <div style={{ width: '100%' }}>
-                <TextoAzul>Horas</TextoAzul>
-                <Input
-                    placeholder={"Preencha as horas"}
-                    type="number"
-                    value={horas}
-                    onChange={(e) => setHoras(e.target.value)}
-                />
-            </div>
+            <InputTempo onChange={setTempoEmMinutos} />
 
             <div style={{ width: '100%' }}>
                 <TextoAzul>Descrição</TextoAzul>

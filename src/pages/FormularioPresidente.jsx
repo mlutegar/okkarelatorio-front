@@ -11,6 +11,8 @@ import FormularioSemCheck from "../components/Elementos/Input/FormularioSemCheck
 import FormularioTextAreaComCheck
     from "../components/Elementos/Input/FormularioTextAreaComCheck/FormularioTextAreaComCheck";
 import atualizarRelatorioPresidente from "../api/atualizarRelatorioPresidente";
+import FormularioTempoComCheck from "../components/Elementos/Input/FormularioTempoComCheck/FormularioTempoComCheck";
+import FormularioTempoSemCheck from "../components/Elementos/Input/FormularioTempoSemCheck/FormularioTempoSemCheck";
 
 const FormularioPresidente = () => {
     const navigate = useNavigate();
@@ -19,11 +21,11 @@ const FormularioPresidente = () => {
 
     const [idRelatorio, setId] = useState(relatorio ? relatorio.id : "");
     const [topico, setTopico] = useState(relatorio ? relatorio.titulo : "");
-    const [horas, setHoras] = useState(relatorio ? relatorio.hora : "");
+    const [tempoEmMinutos, setTempoEmMinutos] = useState(relatorio ? relatorio.minutos : 0);
     const [descricao, setDescricao] = useState(relatorio ? relatorio.descricao : "");
 
     const [topicoModificado, setTopicoModificado] = useState(relatorio ? relatorio.titulo_modificado : "");
-    const [horasModificado, setHorasModificado] = useState(relatorio ? relatorio.hora_modificada : "");
+    const [tempoEmMinutosAlterados, setTempoEmMinutosAlterados] = useState(relatorio ? relatorio.minutos_modificada : 0);
     const [descricaoModificada, setDescricaoModificada] = useState(relatorio ? relatorio.descricao_modificada : "");
     const [colaborador, setColaborador] = useState(relatorio ? relatorio.colaborador : "");
     const [diretor, setDiretor] = useState(relatorio ? relatorio.diretor : "");
@@ -37,10 +39,10 @@ const FormularioPresidente = () => {
         if (relatorio) {
             console.log("Relatório recebido:", relatorio);
             setTopico(relatorio.titulo);
-            setHoras(relatorio.hora);
+            setTempoEmMinutos(relatorio.minutos);
             setDescricao(relatorio.descricao || "");
             setTopicoModificado(relatorio.titulo_modificado);
-            setHorasModificado(relatorio.hora_modificada);
+            setTempoEmMinutosAlterados(relatorio.minutos_modificada);
             setDescricaoModificada(relatorio.descricao_modificada);
             setColaborador(relatorio.colaborador);
             setDiretor(relatorio.diretor);
@@ -54,16 +56,16 @@ const FormularioPresidente = () => {
         console.log("Enviando relatório...");
 
         console.log("Topico:", topico);
-        console.log("Horas:", horas);
+        console.log("tempoEmMinutos:", tempoEmMinutos);
         console.log("Descrição:", descricao);
 
         console.log("Topico Modificado:", topicoModificado);
-        console.log("Horas Modificado:", horasModificado);
+        console.log("Horas Modificado:", tempoEmMinutosAlterados);
         console.log("Descrição Modificada:", descricaoModificada);
 
         const id = idRelatorio;
         const matricula = localStorage.getItem('matricula');
-        const hora_modificada = horasModificado;
+        const hora_modificada = tempoEmMinutosAlterados;
         const descricao_modificada = descricaoModificada;
         const titulo_modificado = topicoModificado;
 
@@ -80,7 +82,7 @@ const FormularioPresidente = () => {
         <Base>
             <Titulo>FORMULÁRIO</Titulo>
 
-            {(topicoModificado !== topico) ? (
+            {(topicoModificado !== "") ? (
                     <div style={{width: "100%"}}>
                         <FormularioComCheck
                             label={"Tópico"}
@@ -107,34 +109,31 @@ const FormularioPresidente = () => {
                 />
             }
 
-            {(horasModificado !== horas) ? (
+            {(tempoEmMinutosAlterados !== tempoEmMinutos) ? (
                     <div style={{width: "100%"}}>
-                        <FormularioComCheck
-                            label={"Horas"}
-                            placeholder={horasModificado}
-                            type={"number"}
+                        <FormularioTempoComCheck
+                            label={"Tempo dedicado"}
+                            valorPadrao={tempoEmMinutos} // Valor padrão em minutos
                             onCheckChange={setCheckStatusHoras}
-                            value={horasModificado}
-                            setValue={setHorasModificado}
+                            value={tempoEmMinutosAlterados}
+                            setValue={setTempoEmMinutosAlterados}
                         />
-                        <FormularioSemCheck
-                            label={""}
-                            placeholder={horas}
-                            type={"number"}
+                        <FormularioTempoSemCheck
+                            label={"Tempo registrado"}
+                            valorInicial={tempoEmMinutos} // Valor em minutos que será exibido como horas:minutos
                         />
                     </div>
                 ) :
-                <FormularioComCheck
-                    label={"Horas"}
-                    placeholder={horas + "h"}
-                    type={"number"}
+                <FormularioTempoComCheck
+                    label={"Tempo dedicado"}
+                    valorPadrao={tempoEmMinutos} // Valor padrão em minutos
                     onCheckChange={setCheckStatusHoras}
-                    value={horasModificado}
-                    setValue={setHorasModificado}
+                    value={tempoEmMinutosAlterados}
+                    setValue={setTempoEmMinutosAlterados}
                 />
             }
 
-            {(descricaoModificada !== descricao) ? (
+            {(descricaoModificada !== "") ? (
                     <div style={{width: "100%"}}>
                         <FormularioTextAreaComCheck
                             label={"Descrição"}

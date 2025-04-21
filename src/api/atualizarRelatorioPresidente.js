@@ -8,7 +8,7 @@ const atualizarRelatorioPresidente = async (id, presidente, hora_modificada, des
     const authHeader = 'Basic ' + btoa(`${username}:${password}`);
     const json = JSON.stringify({
         presidente,
-        hora_modificada,
+        minutos_modificada: hora_modificada,
         descricao_modificada,
         titulo_modificado,
         aprovado_presidencia: true, // Marca como aprovado pela diretoria

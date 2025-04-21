@@ -52,8 +52,8 @@ const Presidente = () => {
                     data={formatDate(relatorio.data_criacao)} // Formata a data aqui
                     topico={relatorio.titulo}
                     topico_modificado={relatorio.titulo_modificado}
-                    horas={relatorio.hora}
-                    horas_modificado={relatorio.hora_modificada}
+                    minutos={relatorio.minutos}
+                    minutos_modificada={relatorio.minutos_modificada}
                     descricao={relatorio.descricao}
                     diretor={relatorio.diretor}
                 />
