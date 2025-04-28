@@ -1,11 +1,8 @@
 import Base from "./Base";
 import Titulo from "../components/Elementos/Textos/Titulo/Titulo";
 import Subtitulo from "../components/Elementos/Textos/Subtitulo/Subtitulo";
-import BotaoAdd from "../components/Elementos/Botoes/BotaoAdd/BotaoAdd";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import fetchRelatorioPorMatricula from "../api/fetchRelatorioPorMatricula";
-import CardRelatorioPresidente from "../components/CardRelatorioPresidente/CardRelatorioPresidente";
 import CardRelatorio from "../components/CardRelatorio/CardRelatorio";
 import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPrimario";
 import fetchRelatorioFinalizado from "../api/fetchRelatorioFinalizado";
@@ -37,22 +34,24 @@ const HistoricoPresidente = () => {
 
     const navigate = useNavigate();
     return (<Base>
-            <Titulo>
-                HISTÓRICO
-            </Titulo>
+        <Titulo>
+            HISTÓRICO
+        </Titulo>
 
-            {relatorios.map((relatorio) => (<CardRelatorio
-                onClick={() => navigate("/visualizar-card", { state: { relatorio } })}
-                    colaborador={relatorio.colaborador}
-                    data={formatDate(relatorio.data_criacao)} // Formata a data aqui
-                    topico={relatorio.titulo}
-                    horas={relatorio.hora}
-                    descricao={relatorio.descricao}
-                />))}
+        {relatorios.map((relatorio) => (
+            <CardRelatorio
+                onClick={() => navigate("/visualizar-card", {state: {relatorio}})}
+                colaborador={relatorio.colaborador}
+                data={formatDate(relatorio.data_criacao)} // Formata a data aqui
+                topico={relatorio.titulo}
+                minutos={relatorio.minutos}
+                descricao={relatorio.descricao}
+            />
+        ))}
 
-            {!relatorios.length && (<Subtitulo>
-                    Sem relatórios enviados
-                </Subtitulo>)}
+        {!relatorios.length && (<Subtitulo>
+            Sem relatórios enviados
+        </Subtitulo>)}
 
         <BotaoSecundario
             onClick={() => {
@@ -62,13 +61,13 @@ const HistoricoPresidente = () => {
             Exportar
         </BotaoSecundario>
 
-            <BotaoPrimario
-                onClick={() => navigate('/presidente')}
-            >
-                Voltar
-            </BotaoPrimario>
+        <BotaoPrimario
+            onClick={() => navigate('/presidente')}
+        >
+            Voltar
+        </BotaoPrimario>
 
-        </Base>);
+    </Base>);
 };
 
 export default HistoricoPresidente;

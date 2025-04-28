@@ -1,11 +1,11 @@
 import React from 'react';
-import { historicoBlueContainer } from './Style';
+import { TextoDescritivoStyle } from './Style';
 
 const TextoPreto = ({children, className}) => {
     return (
-        <div style={historicoBlueContainer} className={className}>
+        <TextoDescritivoStyle className={className}>
             {children}
-        </div>
+        </TextoDescritivoStyle>
     );
 };
 

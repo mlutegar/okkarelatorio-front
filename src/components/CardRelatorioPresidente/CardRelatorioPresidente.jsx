@@ -42,6 +42,13 @@ const CardRelatorioPresidente = ({
         setTemModificacao(true);
     }, []);
 
+    const retornarNomeComNoMaximo15Caracteres = (nome) => {
+        if (nome.length > 15) {
+            return nome.substring(0, 15) + "...";
+        }
+        return nome;
+    }
+
     return (
         <CardRelatorioPresidenteStyle onClick={onClick}>
             <div style={{display: "flex", justifyContent: "space-between", padding: "1rem 1rem 0 1rem"}}>
@@ -62,11 +69,11 @@ const CardRelatorioPresidente = ({
                     style={{display: "flex", flexDirection: "column", gap: "0.5rem", width: "15rem"}}
                 >
                     <TextoPreto className={temModificacao ? "modificado" : ""}>
-                        {topico} - {horas}h {minutosRestantes}m
+                        {retornarNomeComNoMaximo15Caracteres(topico)} - {horas}h {minutosRestantes}m
                     </TextoPreto>
                     {temModificacao &&
                         <TextoVermelho>
-                            {topico_alterado} - {horasAlterado}h {minutosRestantesAlterado}m
+                            {retornarNomeComNoMaximo15Caracteres(topico_alterado)} - {horasAlterado}h {minutosRestantesAlterado}m
                         </TextoVermelho>
                     }
 

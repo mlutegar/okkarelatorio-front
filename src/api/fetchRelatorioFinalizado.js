@@ -24,21 +24,21 @@ async function fetchRelatorioFinalizado() {
             .filter(relatorio => relatorio.aprovado_direroria === true) // Filtragem
             .filter(relatorio => relatorio.aprovado_presidencia === true) // Filtragem
             .map(relatorio => ({
-            id: relatorio.id,
-            colaborador: relatorio.colaborador,
-            diretor: relatorio.diretor,
-            titulo: relatorio.titulo,
-            titulo_modificado: relatorio.titulo_modificado,
-            descricao: relatorio.descricao,
-            descricao_modificada: relatorio.descricao_modificada,
-            data_criacao: relatorio.data_criacao,
-            data_modificacao: relatorio.data_modificacao,
-            hora: relatorio.hora,
-            hora_modificada: relatorio.hora_modificada,
-            setor: relatorio.setor,
-            aprovado_direroria: relatorio.aprovado_direroria,
-            aprovado_presidencia: relatorio.aprovado_presidencia,
-        }));
+                id: relatorio.id,
+                colaborador: relatorio.colaborador,
+                diretor: relatorio.diretor,
+                titulo: relatorio.titulo,
+                titulo_modificado: relatorio.titulo_modificado,
+                descricao: relatorio.descricao,
+                descricao_modificada: relatorio.descricao_modificada,
+                data_criacao: relatorio.data_criacao,
+                data_modificacao: relatorio.data_modificacao,
+                minutos: relatorio.minutos,
+                minutos_modificada: relatorio.minutos_modificada,
+                setor: relatorio.setor,
+                aprovado_direroria: relatorio.aprovado_direroria,
+                aprovado_presidencia: relatorio.aprovado_presidencia,
+            }));
 
         return relatorios;
     } catch (error) {
