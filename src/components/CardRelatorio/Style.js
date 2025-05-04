@@ -7,6 +7,13 @@ export const CardRelatorioStyle = styled.div`
     border-radius: 1.25rem;
     background: #D9D9D9;
     
+    .header{
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 1rem 0 1rem;
+        align-items: center;
+    }
+    
     .data{
         border-radius: 1.25rem;
         background: #063D86;

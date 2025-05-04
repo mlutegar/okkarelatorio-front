@@ -28,8 +28,6 @@ const FormularioDiretor = () => {
     const [checkStatusDescricao, setCheckStatusDescricao] = useState(null);
 
     useEffect(() => {
-        console.log("Relatório recebido:", relatorio);
-
         if (relatorio) {
             setTopico(relatorio.titulo);
             setTempoEmMinutos(relatorio.minutos);

@@ -27,7 +27,6 @@ const InputTempo = ({ onChange, disabled = false, valorInicial = 0 }) => {
         const totalMinutos = (horasNum * 60) + minutosNum;
 
         onChange(totalMinutos);
-        console.log(`Total de minutos: ${totalMinutos}`);
     }, [horas, minutos, onChange]);
 
     return (

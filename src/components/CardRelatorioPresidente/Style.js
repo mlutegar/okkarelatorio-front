@@ -2,12 +2,22 @@ import styled from "styled-components"
 
 export const CardRelatorioPresidenteStyle = styled.div`
     width: 22.875rem;
-    height: 5.55rem;
     flex-shrink: 0;
     border-radius: 1.25rem;
     background: #D9D9D9;
-    
-    .data{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 1rem 0 1rem;
+        align-items: center;
+    }
+
+    .data {
         border-radius: 1.25rem;
         background: #063D86;
         width: 5.875rem;
@@ -17,8 +27,8 @@ export const CardRelatorioPresidenteStyle = styled.div`
         justify-content: center;
         align-items: center;
     }
-    
-    .modificado{
+
+    .modificado {
         text-decoration: line-through;
     }
 `

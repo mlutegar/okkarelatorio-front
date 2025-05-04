@@ -5,7 +5,8 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import fetchRelatorioPresidente from "../api/fetchRelatorioPresidente";
 import CardRelatorioPresidente from "../components/CardRelatorioPresidente/CardRelatorioPresidente";
-import BotaoPrimario from "../components/Elementos/Botoes/BotaoPrimario/BotaoPrimario";
+import BotaoAdd from "../components/Elementos/Botoes/BotaoAdd/BotaoAdd";
+import BotaoSecundario from "../components/Elementos/Botoes/BotaoSecundario/BotaoSecundario";
 
 const formatDate = (dateString) => {
     const date = new Date(dateString); // Cria um objeto Date a partir da string
@@ -23,15 +24,13 @@ const Presidente = () => {
     useEffect(() => {
         const fetchRelatorios = async () => {
             const relatoriosFetch = await fetchRelatorioPresidente();
-            console.log("Relatórios:", relatoriosFetch);
             if (relatoriosFetch) {
                 setRelatorios(relatoriosFetch);
             }
         };
 
         fetchRelatorios();
-    }, [setor, relatorios]); // Adicionando matricula como dependência
-
+    }, []); // Adicionando matricula como dependência
 
     return (
         <Base>
@@ -45,8 +44,9 @@ const Presidente = () => {
                 </Subtitulo>
             )}
 
-            {relatorios.map((relatorio) => (
+            {relatorios.map((relatorio, index) => (
                 <CardRelatorioPresidente
+                    key={index}
                     onClick={() => navigate("/formulario-presidente", { state: { relatorio } })}
                     colaborador={relatorio.colaborador}
                     data={formatDate(relatorio.data_criacao)} // Formata a data aqui
@@ -59,11 +59,16 @@ const Presidente = () => {
                 />
             ))}
 
-            <BotaoPrimario
+
+            <BotaoAdd
+                onClick={() => navigate('/formulario-presidente-novo')}
+            />
+
+            <BotaoSecundario
                 onClick={() => navigate("/historico")}
             >
                 Vê Histórico
-            </BotaoPrimario>
+            </BotaoSecundario>
         </Base>
     )
 }

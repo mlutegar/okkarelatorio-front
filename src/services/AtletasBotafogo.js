@@ -1,9 +1,8 @@
 import { handleError, handleResponse } from "./ServiceUtils";
-
-const url = "https://botafogo-atletas.mange.li"
+import API_BASE_URL from "../../config";
 
 const getAll = async () => {
-  const response = await (fetch(`${url}/all`).catch(handleError));
+  const response = await (fetch(`${API_BASE_URL}/all`).catch(handleError));
 
   return await handleResponse(response);  
 }

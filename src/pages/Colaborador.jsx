@@ -5,10 +5,9 @@ import BotaoAdd from "../components/Elementos/Botoes/BotaoAdd/BotaoAdd";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import fetchRelatorioPorMatricula from "../api/fetchRelatorioPorMatricula";
-import CardRelatorioPresidente from "../components/CardRelatorioPresidente/CardRelatorioPresidente";
 import CardRelatorio from "../components/CardRelatorio/CardRelatorio";
 
-// Função para formatar a data
+
 const formatDate = (dateString) => {
     const date = new Date(dateString); // Cria um objeto Date a partir da string
     const year = date.getFullYear();
@@ -43,7 +42,7 @@ const Colaborador = () => {
                     colaborador={relatorio.colaborador}
                     data={formatDate(relatorio.data_criacao)} // Formata a data aqui
                     topico={relatorio.titulo}
-                    horas={relatorio.hora}
+                    minutos={relatorio.minutos}
                     descricao={relatorio.descricao}
                 />))}
 

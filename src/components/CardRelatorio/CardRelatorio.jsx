@@ -8,12 +8,26 @@ const CardRelatorio = ({onClick, colaborador, data, topico, minutos}) => {
     const horas = Math.floor(minutos / 60);
     const minutosRestantes = minutos % 60;
 
+    const retornarNomeComNoMaximo15Caracteres = (nome) => {
+        if (nome.length > 15) {
+            return nome.substring(0, 15) + "...";
+        }
+        return nome;
+    }
+
+    const retornaDoisPrimeirosNomes = (nome) => {
+        const nomes = nome.split(" ");
+        if (nomes.length > 2) {
+            return `${nomes[0]} ${nomes[1]}`;
+        }
+        return nome;
+    }
+
     return (
         <CardRelatorioStyle onClick={onClick}>
-            <div style={{display: "flex", justifyContent: "space-between", padding: "1rem 1rem 0 1rem"}}>
-
+            <div className={'header'}>
                 <TextoAzul>
-                    {colaborador}
+                    {retornaDoisPrimeirosNomes(colaborador)}
                 </TextoAzul>
                 <div className={"data"}>
                     <TextoAmarelo>
@@ -24,7 +38,7 @@ const CardRelatorio = ({onClick, colaborador, data, topico, minutos}) => {
 
             <div style={{padding: "0 1rem"}}>
                 <TextoPreto>
-                    {topico} - {horas}h {minutosRestantes}m
+                    {retornarNomeComNoMaximo15Caracteres(topico)} - {horas}h {minutosRestantes}m
                 </TextoPreto>
 
             </div>

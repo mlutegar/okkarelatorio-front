@@ -38,8 +38,9 @@ const HistoricoPresidente = () => {
             HISTÓRICO
         </Titulo>
 
-        {relatorios.map((relatorio) => (
+        {relatorios.map((relatorio, index) => (
             <CardRelatorio
+                key={index}
                 onClick={() => navigate("/visualizar-card", {state: {relatorio}})}
                 colaborador={relatorio.colaborador}
                 data={formatDate(relatorio.data_criacao)} // Formata a data aqui
@@ -55,7 +56,7 @@ const HistoricoPresidente = () => {
 
         <BotaoSecundario
             onClick={() => {
-                window.location.href = 'https://okarelatorio.fly.dev/api/export-excel';
+                window.location.href = 'https://okkarelatorio.fly.dev/api/export-excel';
             }}
         >
             Exportar

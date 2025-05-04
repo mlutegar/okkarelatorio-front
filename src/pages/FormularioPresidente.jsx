@@ -20,15 +20,18 @@ const FormularioPresidente = () => {
     const {relatorio} = location.state || {};
 
     const [idRelatorio, setId] = useState(relatorio ? relatorio.id : "");
-    const [topico, setTopico] = useState(relatorio ? relatorio.titulo : "");
-    const [tempoEmMinutos, setTempoEmMinutos] = useState(relatorio ? relatorio.minutos : 0);
-    const [descricao, setDescricao] = useState(relatorio ? relatorio.descricao : "");
 
+    const [topico, setTopico] = useState(relatorio ? relatorio.titulo : "");
     const [topicoModificado, setTopicoModificado] = useState(relatorio ? relatorio.titulo_modificado : "");
+    const [topicoFinalizado, setTopicoFinalizado] = useState("");
+
+    const [tempoEmMinutos, setTempoEmMinutos] = useState(relatorio ? relatorio.minutos : 0);
     const [tempoEmMinutosAlterados, setTempoEmMinutosAlterados] = useState(relatorio ? relatorio.minutos_modificada : 0);
+    const [tempoFinalizado, setTempoFinalizado] = useState(0);
+
+    const [descricao, setDescricao] = useState(relatorio ? relatorio.descricao : "");
     const [descricaoModificada, setDescricaoModificada] = useState(relatorio ? relatorio.descricao_modificada : "");
-    const [colaborador, setColaborador] = useState(relatorio ? relatorio.colaborador : "");
-    const [diretor, setDiretor] = useState(relatorio ? relatorio.diretor : "");
+    const [descricaoFinalizado, setDescricaoFinalizado] = useState("");
 
     // Estados para armazenar o status de check de cada campo
     const [checkStatusTopico, setCheckStatusTopico] = useState(null);
@@ -37,39 +40,26 @@ const FormularioPresidente = () => {
 
     useEffect(() => {
         if (relatorio) {
-            console.log("Relatório recebido:", relatorio);
             setTopico(relatorio.titulo);
             setTempoEmMinutos(relatorio.minutos);
             setDescricao(relatorio.descricao || "");
             setTopicoModificado(relatorio.titulo_modificado);
             setTempoEmMinutosAlterados(relatorio.minutos_modificada);
             setDescricaoModificada(relatorio.descricao_modificada);
-            setColaborador(relatorio.colaborador);
-            setDiretor(relatorio.diretor);
         }
     }, [relatorio]);
 
     // Verifica se todos os campos tiveram seu check definido
     const isFormValid = checkStatusTopico !== null && checkStatusHoras !== null && checkStatusDescricao !== null;
 
-    const handleEnviar = () => {
-        console.log("Enviando relatório...");
-
-        console.log("Topico:", topico);
-        console.log("tempoEmMinutos:", tempoEmMinutos);
-        console.log("Descrição:", descricao);
-
-        console.log("Topico Modificado:", topicoModificado);
-        console.log("Horas Modificado:", tempoEmMinutosAlterados);
-        console.log("Descrição Modificada:", descricaoModificada);
-
+    const handleEnviar = async () => {
         const id = idRelatorio;
         const matricula = localStorage.getItem('matricula');
-        const hora_modificada = tempoEmMinutosAlterados;
-        const descricao_modificada = descricaoModificada;
-        const titulo_modificado = topicoModificado;
+        const hora_modificada = tempoFinalizado;
+        const descricao_modificada = descricaoFinalizado;
+        const titulo_modificado = topicoFinalizado;
 
-        const success = atualizarRelatorioPresidente(id, matricula, hora_modificada, descricao_modificada, titulo_modificado);
+        const success = await atualizarRelatorioPresidente(id, matricula, hora_modificada, descricao_modificada, titulo_modificado);
 
         if (success) {
             navigate('/');
@@ -82,7 +72,7 @@ const FormularioPresidente = () => {
         <Base>
             <Titulo>FORMULÁRIO</Titulo>
 
-            {(topicoModificado !== "") ? (
+            {(topicoModificado !== "" && topicoModificado !== topico) ? (
                     <div style={{width: "100%"}}>
                         <FormularioComCheck
                             label={"Tópico"}
@@ -104,22 +94,21 @@ const FormularioPresidente = () => {
                     placeholder={topico}
                     type={"text"}
                     onCheckChange={setCheckStatusTopico}
-                    value={topicoModificado}
-                    setValue={setTopicoModificado}
+                    value={topicoFinalizado}
+                    setValue={setTopicoFinalizado}
                 />
             }
 
-            {(tempoEmMinutosAlterados !== tempoEmMinutos) ? (
+            {(tempoEmMinutosAlterados !== 0 && tempoEmMinutosAlterados !== tempoEmMinutos) ? (
                     <div style={{width: "100%"}}>
                         <FormularioTempoComCheck
                             label={"Tempo dedicado"}
-                            valorPadrao={tempoEmMinutos} // Valor padrão em minutos
+                            valorPadrao={tempoEmMinutosAlterados} // Valor padrão em minutos
                             onCheckChange={setCheckStatusHoras}
-                            value={tempoEmMinutosAlterados}
-                            setValue={setTempoEmMinutosAlterados}
+                            value={tempoFinalizado}
+                            setValue={setTempoFinalizado}
                         />
                         <FormularioTempoSemCheck
-                            label={"Tempo registrado"}
                             valorInicial={tempoEmMinutos} // Valor em minutos que será exibido como horas:minutos
                         />
                     </div>
@@ -128,18 +117,18 @@ const FormularioPresidente = () => {
                     label={"Tempo dedicado"}
                     valorPadrao={tempoEmMinutos} // Valor padrão em minutos
                     onCheckChange={setCheckStatusHoras}
-                    value={tempoEmMinutosAlterados}
-                    setValue={setTempoEmMinutosAlterados}
+                    value={tempoFinalizado}
+                    setValue={setTempoFinalizado}
                 />
             }
 
-            {(descricaoModificada !== "") ? (
+            {(descricaoModificada !== "" && descricaoModificada !== descricao) ? (
                     <div style={{width: "100%"}}>
                         <FormularioTextAreaComCheck
                             label={"Descrição"}
                             placeholder={descricaoModificada}
                             onCheckChange={setCheckStatusDescricao}
-                            value={descricaoModificada}
+                            value={descricaoFinalizado}
                             setValue={setDescricaoModificada}
                         />
                         <FormularioTextAreaSemCheck
@@ -153,8 +142,8 @@ const FormularioPresidente = () => {
                     label={"Descrição"}
                     placeholder={descricao}
                     onCheckChange={setCheckStatusDescricao}
-                    value={descricaoModificada}
-                    setValue={setDescricaoModificada}
+                    value={descricaoFinalizado}
+                    setValue={setDescricaoFinalizado}
                 />
             }
 

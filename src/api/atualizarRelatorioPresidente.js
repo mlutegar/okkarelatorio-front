@@ -14,8 +14,6 @@ const atualizarRelatorioPresidente = async (id, presidente, hora_modificada, des
         aprovado_presidencia: true, // Marca como aprovado pela diretoria
     });
 
-    console.log("Atualizações: " + json);
-
     try {
         const response = await fetch(`https://okkarelatorio.fly.dev/api/relatorios/${id}/custom-update/`, {
             method: 'PATCH',
@@ -28,7 +26,6 @@ const atualizarRelatorioPresidente = async (id, presidente, hora_modificada, des
         });
 
         if (response.ok) {
-            console.log("Relatório atualizado com sucesso!");
             return true;
         } else {
             const data = await response.json();

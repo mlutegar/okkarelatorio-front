@@ -21,10 +21,8 @@ const Diretor = () => {
     const setor = localStorage.getItem("setor");
 
     useEffect(() => {
-        console.log("Setor:", setor);
         const fetchRelatorios = async () => {
             const relatoriosFetch = await fetchRelatorioPorSetor(setor);
-            console.log("Relatórios:", relatoriosFetch);
             if (relatoriosFetch) {
                 setRelatorios(relatoriosFetch);
             }

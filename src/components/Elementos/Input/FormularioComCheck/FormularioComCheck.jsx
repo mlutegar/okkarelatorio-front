@@ -5,8 +5,6 @@ import Input from "../../../Input/Input";
 import { useState, useEffect } from "react";
 
 const FormularioComCheck = ({ label, placeholder, type, onCheckChange, value, setValue }) => {
-    // Inicializa o estado com o valor recebido
-    // const [valor, setValor] = useState(placeholder);
     const [checkStatus, setCheckStatus] = useState(null);
 
     useEffect(() => {

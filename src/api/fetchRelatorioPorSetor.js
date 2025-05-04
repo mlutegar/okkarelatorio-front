@@ -1,8 +1,13 @@
 import Cookies from "js-cookie";
+import getColaboradorFirstName from "./getColaboradorFirstName";
 
 async function fetchRelatorioPorSetor(setor) {
     const url = `https://okkarelatorio.fly.dev/api/relatorios/setor/${setor}/`; // URL para buscar por setor
     const csrftoken = Cookies.get('csrftoken');
+
+    const pegarFirstNameColaboradorPorMatricula = (matricula) => {
+
+    }
 
     try {
         const response = await fetch(url, {
@@ -38,6 +43,17 @@ async function fetchRelatorioPorSetor(setor) {
                 aprovado_direroria: relatorio.aprovado_direroria,
                 aprovado_presidencia: relatorio.aprovado_presidencia,
             }));
+
+        for (let relatorio of relatorios) {
+            const matriculaColaborador = relatorio.colaborador;
+            const matriculaDiretor = relatorio.diretor;
+
+            const nomeColaborador = await getColaboradorFirstName(matriculaColaborador);
+            const nomeDiretor = await getColaboradorFirstName(matriculaDiretor);
+
+            relatorio.colaborador = nomeColaborador;
+            relatorio.diretor = nomeDiretor;
+        }
 
         return relatorios;
     } catch (error) {

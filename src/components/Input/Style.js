@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyleText = styled.input`
+const StyleText = styled.textarea`
     width: 18.6875rem;
     height: 2.6875rem;
     flex-shrink: 0;
@@ -15,6 +15,8 @@ const StyleText = styled.input`
     border: none;
     border-bottom: 2px solid #063D86;
     padding: 0;
+    overflow: hidden;
+    resize: none;
 
     &:focus{
         outline: none;

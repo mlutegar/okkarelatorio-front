@@ -26,7 +26,7 @@ const CardRelatorioPresidente = ({
     let minutosRestantesAlterado = minutos_modificada % 60;
 
     useEffect(() => {
-        if (topico_modificado === "" && minutos_modificada === "") {
+        if (topico_modificado === "" && minutos_modificada === 0) {
             return;
         }
 
@@ -34,7 +34,7 @@ const CardRelatorioPresidente = ({
             setTopicoAlterado(topico);
         }
 
-        if (minutos_modificada === "") {
+        if (minutos_modificada === 0) {
             horasAlterado = Math.floor(minutos_modificada / 60);
             minutosRestantesAlterado = minutos_modificada % 60;
         }
@@ -49,12 +49,27 @@ const CardRelatorioPresidente = ({
         return nome;
     }
 
+    const retornaDoisPrimeirosNomes = (nome) => {
+        const nomes = nome.split(" ");
+        if (nomes.length > 2) {
+            return `${nomes[0]} ${nomes[1]}`;
+        }
+        return nome;
+    }
+
+    const retornarPrimeiroNomeApenas = (nome) => {
+        const nomes = nome.split(" ");
+        if (nomes.length > 1) {
+            return nomes[0];
+        }
+        return nome;
+    }
+
     return (
         <CardRelatorioPresidenteStyle onClick={onClick}>
-            <div style={{display: "flex", justifyContent: "space-between", padding: "1rem 1rem 0 1rem"}}>
-
+            <div className={'header'}>
                 <TextoAzul>
-                    {colaborador}
+                    {retornaDoisPrimeirosNomes(colaborador)}
                 </TextoAzul>
                 <div className={"data"}>
                     <TextoAmarelo>
@@ -81,7 +96,7 @@ const CardRelatorioPresidente = ({
                 <div style={{display: "flex", alignItems: "center"}}>
                     <Lapis/>
                     <TextoAzul>
-                        {diretor}
+                        {retornarPrimeiroNomeApenas(diretor)}
                     </TextoAzul>
                 </div>
             </div>

@@ -9,27 +9,30 @@ import FormularioTextAreaSemCheck
 import FormularioSemCheck from "../components/Elementos/Input/FormularioSemCheck/FormularioSemCheck";
 import FormularioTextAreaComCheck
     from "../components/Elementos/Input/FormularioTextAreaComCheck/FormularioTextAreaComCheck";
+import FormularioTempoComCheck from "../components/Elementos/Input/FormularioTempoComCheck/FormularioTempoComCheck";
+import FormularioTempoSemCheck from "../components/Elementos/Input/FormularioTempoSemCheck/FormularioTempoSemCheck";
 
 const VisualizarCard = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const {relatorio} = location.state || {};
-    const [topico, setTopico] = useState(relatorio ? relatorio.titulo : "");
-    const [horas, setHoras] = useState(relatorio ? relatorio.hora : "");
-    const [descricao, setDescricao] = useState(relatorio ? relatorio.descricao : "");
 
+    const [topico, setTopico] = useState(relatorio ? relatorio.titulo : "");
     const [topicoModificado, setTopicoModificado] = useState(relatorio ? relatorio.titulo_modificado : "");
-    const [horasModificado, setHorasModificado] = useState(relatorio ? relatorio.hora_modificada : "");
+
+    const [tempoEmMinutos, setTempoEmMinutos] = useState(relatorio ? relatorio.minutos : 0);
+    const [tempoEmMinutosAlterados, setTempoEmMinutosAlterados] = useState(relatorio ? relatorio.minutos_modificada : 0);
+
+    const [descricao, setDescricao] = useState(relatorio ? relatorio.descricao : "");
     const [descricaoModificada, setDescricaoModificada] = useState(relatorio ? relatorio.descricao_modificada : "");
 
     useEffect(() => {
         if (relatorio) {
-            console.log("Relatório recebido:", relatorio);
             setTopico(relatorio.titulo);
-            setHoras(relatorio.hora);
+            setTempoEmMinutos(relatorio.minutos);
             setDescricao(relatorio.descricao || "");
             setTopicoModificado(relatorio.titulo_modificado);
-            setHorasModificado(relatorio.hora_modificada);
+            setTempoEmMinutosAlterados(relatorio.minutos_modificada);
             setDescricaoModificada(relatorio.descricao_modificada);
         }
     }, [relatorio]);
@@ -61,26 +64,26 @@ const VisualizarCard = () => {
                 />
             }
 
-            {(horasModificado !== horas) ? (
+            {(tempoEmMinutosAlterados !== 0 && tempoEmMinutosAlterados !== tempoEmMinutos) ? (
                     <div style={{width: "100%"}}>
-                        <FormularioComCheck
+                        <FormularioTempoComCheck
                             label={"Horas"}
-                            placeholder={horasModificado}
+                            placeholder={tempoEmMinutosAlterados}
                             type={"number"}
-                            value={horasModificado}
+                            value={tempoEmMinutosAlterados}
                         />
-                        <FormularioSemCheck
+                        <FormularioTempoSemCheck
                             label={""}
-                            placeholder={horas}
+                            placeholder={tempoEmMinutos}
                             type={"number"}
                         />
                     </div>
                 ) :
-                <FormularioComCheck
+                <FormularioTempoComCheck
                     label={"Horas"}
-                    placeholder={horas + "h"}
+                    placeholder={tempoEmMinutos + "h"}
                     type={"number"}
-                    value={horasModificado}
+                    value={tempoEmMinutos}
                 />
             }
 

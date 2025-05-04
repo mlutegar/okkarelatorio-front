@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import getColaboradorFirstName from "./getColaboradorFirstName";
 
 async function fetchRelatorioPorMatricula(matricula) {
     const url = `https://okkarelatorio.fly.dev/api/relatorios/${matricula}/`;
@@ -30,12 +31,23 @@ async function fetchRelatorioPorMatricula(matricula) {
             descricao_modificada: relatorio.descricao_modificada,
             data_criacao: relatorio.data_criacao,
             data_modificacao: relatorio.data_modificacao,
-            hora: relatorio.hora,
-            hora_modificada: relatorio.hora_modificada,
+            minutos: relatorio.minutos,
+            minutos_modificada: relatorio.minutos_modificada,
             setor: relatorio.setor,
             aprovado_direroria: relatorio.aprovado_direroria,
             aprovado_presidencia: relatorio.aprovado_presidencia,
         }));
+
+        for (let relatorio of relatorios) {
+            const matriculaColaborador = relatorio.colaborador;
+            const matriculaDiretor = relatorio.diretor;
+
+            const nomeColaborador = await getColaboradorFirstName(matriculaColaborador);
+            const nomeDiretor = await getColaboradorFirstName(matriculaDiretor);
+
+            relatorio.colaborador = nomeColaborador;
+            relatorio.diretor = nomeDiretor;
+        }
 
         return relatorios;
     } catch (error) {

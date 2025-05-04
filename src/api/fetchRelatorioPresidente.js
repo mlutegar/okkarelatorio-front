@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import getColaboradorFirstName from "./getColaboradorFirstName";
 
 async function fetchRelatorioPresidente() {
     const url = `https://okkarelatorio.fly.dev/api/relatorios/`; // URL para buscar todos os relatórios
@@ -18,8 +19,6 @@ async function fetchRelatorioPresidente() {
         }
 
         const data = await response.json();
-
-        // Mapeia os dados de cada relatório
         const relatorios = data
             .filter(relatorio => relatorio.aprovado_direroria === true) // Filtragem
             .filter(relatorio => relatorio.aprovado_presidencia === false) // Filtragem
@@ -40,10 +39,22 @@ async function fetchRelatorioPresidente() {
             aprovado_presidencia: relatorio.aprovado_presidencia,
         }));
 
+        // Adiciona o nome do colaborador e do diretor
+        for (let relatorio of relatorios) {
+            const matriculaColaborador = relatorio.colaborador;
+            const matriculaDiretor = relatorio.diretor;
+
+            const nomeColaborador = await getColaboradorFirstName(matriculaColaborador);
+            const nomeDiretor = await getColaboradorFirstName(matriculaDiretor);
+
+            relatorio.colaborador = nomeColaborador;
+            relatorio.diretor = nomeDiretor;
+        }
+
         return relatorios;
     } catch (error) {
         console.error('Erro ao buscar os dados do relatório:', error);
-        return null; // Retorna null em caso de erro
+        return null;
     }
 }
 

@@ -22,7 +22,6 @@ const FormularioTempoComCheck = ({ label, valorPadrao = 0, onCheckChange, value,
     const handleTempoChange = (totalMinutos) => {
         if (setValue && checkStatus === "negar") {
             setValue(totalMinutos);
-            console.log(`Tempo alterado: ${totalMinutos} minutos`);
         }
     };
 
